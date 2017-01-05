@@ -1,0 +1,1 @@
+add_library(SSG STATIC plugin.cpp)
