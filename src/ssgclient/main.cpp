@@ -19,6 +19,15 @@
 //#include <pthread.h>
 
 // 3rd Party
+
+#ifdef HAS_LIBSNDFILE
+#   include <sndfile.h>
+#endif
+
+#ifdef HAS_IMGUI
+#   include <imgui.h>
+#endif
+
 #ifdef HAS_BOOST
 #   include <boost/array.hpp>
 #   include <boost/container/vector.hpp>
@@ -49,9 +58,14 @@
 #   include <glm/mat4x4.hpp>
 #endif
 
-#ifdef HAS_SSG_LIB
-#   include "../ssg/plugin.h"
+#ifdef HAS_FREETYPE
+#   include <ft2build.h>
+#   include FT_FREETYPE_H
 #endif
+
+//#ifdef HAS_SSG_LIB
+//#   include "../ssg/plugin.h"
+//#endif
 
 static boost::array<std::string, 5> gszTitle = {
         "==============================",
@@ -126,9 +140,55 @@ int main(int argc, char** argv)
     glfwDestroyWindow(window);
     glfwTerminate();
 
-//    glm::mat4 matrix;
-//    glm::vec4 vec;
-//    glm::vec4 test = matrix * vec;
+//    // sndfile
+//    SF_INFO sfinfo;
+//    memset(&sfinfo, 0, sizeof(SF_INFO));
+//    sfinfo.format = 0;
+//
+//    SNDFILE* psf = sf_open("C:\\TestFile.wav", SFM_READ, &sfinfo);
+
+    // imgui
+//    ImGui_ImplGlfwVulkan_Init(window, true, &init_data);
+//    ImGui_ImplGlfwVulkan_NewFrame();
+//    ImGui_ImplGlfwVulkan_Render(gCommandBuffer[gFrameIndex]);
+//    ImGui_ImplGlfwVulkan_Shutdown();
+
+    ImGui::Text("Hello World");
+    if (ImGui::Button("OK"))
+    {
+        ImGui::Text("I HIT OK ???");
+    }
+
+    char buf[256];
+    strcpy(buf, "Nick Keane");
+    ImGui::InputText("Name", buf, 256);
+    float pct = 0.5f;
+    ImGui::SliderFloat("float", &pct, 0.0f, 1.0f);
+
+
+    // FreeType
+    FT_Library ft;
+
+    if (FT_Init_FreeType(&ft)) {
+        std::cout << "Could not create FT library" << std::endl;
+    }
+
+    // Set Font aka Face
+    FT_Face ftface;
+    if (FT_New_Face(ft, "FreeSans.ttf", 0, &ftface)) {
+        std::cout << "Could not open font" << std::endl;
+    }
+
+    // Set Font Size
+    FT_Set_Pixel_Sizes(ftface, 0, 48);
+
+    // Set Character in Face Glyph
+    if (FT_Load_Char(ftface, 'A', FT_LOAD_RENDER))
+    {
+        std::cout << "Could not load character" << std::endl;
+    }
+
+    FT_GlyphSlot& ftgs = ftface->glyph;
 
     //boostExamples();
     return EXIT_SUCCESS;

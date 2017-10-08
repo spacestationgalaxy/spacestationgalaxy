@@ -1,8 +1,8 @@
 ### SpaceStationGalaxy Master CMake
 cmake_minimum_required(VERSION 3.7.1)
 project(ssg)
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ../../../bin)
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ../../../lib) # TODO: Not working???
+##set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ../../../bin)
+##set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ../../../lib) # TODO: Not working???
 
 ## Platform-Specific Logic
 #################################################
@@ -111,6 +111,10 @@ IF (Vulkan_LIBRARIES)
 ENDIF()
 
 ### GLFW - TODO
+MESSAGE(STATUS)
+MESSAGE(STATUS "*******************************")
+MESSAGE(STATUS "GLFW")
+MESSAGE(STATUS "*******************************")
 unset(glfw_FOUND CACHE)
 add_definitions("-DHAS_GLFW")
 include_directories(E:/SDK/CPP/glfw/include)
@@ -118,13 +122,59 @@ link_directories(E:/SDK/CPP/glfw/lib)
 #find_package(glfw)
 
 ### GLM - TODO
+MESSAGE(STATUS)
+MESSAGE(STATUS "*******************************")
+MESSAGE(STATUS "GLM")
+MESSAGE(STATUS "*******************************")
 unset(glm_FOUND CACHE)
 add_definitions("-DHAS_GLM")
 include_directories(E:/SDK/CPP/glm)
 #find_package(glm)
+
+### libSNDFile - TODO
+MESSAGE(STATUS)
+MESSAGE(STATUS "*******************************")
+MESSAGE(STATUS "libSNDFile")
+MESSAGE(STATUS "*******************************")
+unset(libsndfile_FOUND CACHE)
+add_definitions("-DHAS_LIBSNDFILE")
+include_directories(E:/SDK/CPP/libsndfile/inc)
+link_directories(E:/SDK/CPP/libsndfile/lib)
+
+### OpenAL
+MESSAGE(STATUS)
+MESSAGE(STATUS "*******************************")
+MESSAGE(STATUS "OpenAL")
+MESSAGE(STATUS "*******************************")
+unset(openal_FOUND CACHE)
+add_definitions("-DHAS_OPENAL")
+include_directories(E:/SDK/CPP/openal/include)
+link_directories(E:/SDK/CPP/openal/lib)
+
+### imGui
+MESSAGE(STATUS)
+MESSAGE(STATUS "*******************************")
+MESSAGE(STATUS "imGui")
+MESSAGE(STATUS "*******************************")
+unset(imgui_FOUND CACHE)
+add_definitions("-DHAS_IMGUI")
+include_directories(E:/SDK/CPP/imgui/inc)
+link_directories(E:/SDK/CPP/imgui/lib)
+
+### FreeType
+MESSAGE(STATUS)
+MESSAGE(STATUS "*******************************")
+MESSAGE(STATUS "FreeType")
+MESSAGE(STATUS "*******************************")
+unset(freetype_FOUND CACHE)
+add_definitions("-DHAS_FREETYPE")
+include_directories(E:/SDK/CPP/freetype/include)
+link_directories(E:/SDK/CPP/freetype/lib)
 #################################################
 
 ## Add Projects
 add_subdirectory(src/ssg)
 add_subdirectory(src/ssgclient)
 add_subdirectory(src/ssgserver)
+
+# TODO: File Copying
